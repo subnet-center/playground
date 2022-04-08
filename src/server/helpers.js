@@ -7,13 +7,12 @@ const getAddresses = async ({ publicKey }) => {
 
   const node = bip32.fromBase58(publicKey);
   const scanner = new HdScanner(node, false);
-  // const addressP = scanner.getAddressP();
-  // const addressX = scanner.getAddressX();
-  const addresses = scanner.getAllAddresses();
+  const addressP = scanner.getAddressP();
+  const addressX = scanner.getAddressX();
+  
   return {
-    addresses,
-    // addressP,
-    // addressX,
+    addressP,
+    addressX,
   };
 };
 

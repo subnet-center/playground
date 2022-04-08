@@ -46,9 +46,7 @@ const getHDKey = (address) => {
 };
 
 export const getAddresses = async () => {
-  // X and P chain derived path
   const extendedPublicKey = await avaxApp.getWalletExtendedPublicKey("m/44'/9000'/0'");
-  // const extendedPublicKeyC = await avaxApp.getWalletExtendedPublicKey("m/44'/60'/0'/0/0");
   
   const resp = await fetch("http://localhost:3000/address", {
     method: "POST",
@@ -56,7 +54,7 @@ export const getAddresses = async () => {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: getHDKey(extendedPublicKeyC),
+    body: getHDKey(extendedPublicKey),
   });
 
   return await resp.json();
