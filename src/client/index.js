@@ -1,7 +1,9 @@
 import {
   createWallet,
+  createUnsignedHash,
   getInfo,
-  getAddresses,
+  getWalletAddress,
+  getAddress,
   signHash,
 } from "./ledger-helpers";
 import { ConsoleInDom } from "console-in-dom";
@@ -26,14 +28,22 @@ $start.addEventListener("click", async () => {
   $info.disabled = false;
 
   $address.addEventListener("click", async () => {
-    const addresses = await getAddresses();
-    domConsole.log(addresses);
+    const address = await getAddress();
+    domConsole.log(address);
   });
 
   $address.disabled = false;
 
   $sign.addEventListener("click", async () => {
-    await signHash();
+    const address = await getAddress();
+    const message = {
+      email: "jeroen@jeroenwever.com",
+      addressX: address,
+    };
+    const hash = await createUnsignedHash(message);
+    const signedHash = await signHash(hash);
+    
+    domConsole.log(signedHash);
   });
 
   $sign.disabled = false;

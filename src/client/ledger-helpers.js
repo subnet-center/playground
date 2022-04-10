@@ -1,9 +1,13 @@
+import bippath from 'bip32-path'
+import { Buffer } from "buffer/";
 import HDKey from "hdkey";
-
+import createHash from "create-hash";
 import TransportWebUSB from "@ledgerhq/hw-transport-webusb";
 import TransportWebHID from "@ledgerhq/hw-transport-webhid";
 
 import AvaxApp from "@obsidiansystems/hw-app-avalanche";
+const AVA_ACCOUNT_PATH = "m/44'/9000'/0'";
+const ADDRESS_PATH = "0/0";
 
 let avaxApp = null;
 
@@ -30,12 +34,18 @@ export const getInfo = async () => {
   };
 };
 
+export const createUnsignedHash = async (message) => {
+  const msg = typeof message === "object" ? JSON.stringify(message) : message;
+  const buff = Buffer.from(JSON.stringify(msg));
+  return createHash("sha256").update(buff).digest();
+};
+
 export const signHash = async (hash) => {
-  return await avaxApp.signHash(
-    "m/44'/9000'/0"
-    ["/"],
-    "00000000000000000000000000000000"
-  );
+  const addressPath = bippath.fromString(ADDRESS_PATH, false);
+  const accountPath = bippath.fromString(AVA_ACCOUNT_PATH);
+  console.log(addressPath);
+  console.log(accountPath);
+  return await avaxApp.signHash(accountPath, [addressPath], hash);
 };
 
 const getHDKey = (address) => {
@@ -45,9 +55,16 @@ const getHDKey = (address) => {
   return JSON.stringify(hd);
 };
 
-export const getAddresses = async () => {
-  const extendedPublicKey = await avaxApp.getWalletExtendedPublicKey("m/44'/9000'/0'");
-  
+// export const getWalletAddress = async () => {
+//   const walletAddress = await avaxApp.getWalletAddress(`${AVA_ACCOUNT_PATH}${ADDRESS_PATH}`);
+//   return walletAddress;
+// };
+
+export const getAddress = async () => {
+  const extendedPublicKey = await avaxApp.getWalletExtendedPublicKey(
+    `${AVA_ACCOUNT_PATH}${ADDRESS_PATH}`
+  );
+
   const resp = await fetch("http://localhost:3000/address", {
     method: "POST",
     headers: {
@@ -59,5 +76,3 @@ export const getAddresses = async () => {
 
   return await resp.json();
 };
-
-
