@@ -36,8 +36,7 @@
   },
   "scripts": {
     "build": "parcel build",
-    "client": "parcel",
-    "server": "nodemon ./src/server/index.js"
+    "start": "parcel"
   },
   "author": "",
   "license": "ISC"
