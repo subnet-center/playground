@@ -1,54 +1,44 @@
 import {
   createWallet,
   createUnsignedHash,
-  getInfo,
-  getWalletAddress,
   getAddress,
   signHash,
+  verifyHash,
 } from "./ledger-helpers";
 import { ConsoleInDom } from "console-in-dom";
+import { init } from "express/lib/application";
 
-const $start = document.querySelector("#start");
-const $info = document.querySelector("#info");
 const $address = document.querySelector("#address");
-const $sign = document.querySelector("#sign");
 const $console = document.querySelector("#console");
+const $email = document.querySelector("#email");
+const $sign = document.querySelector("#sign");
+const $verify = document.querySelector("#verify");
 
 const domConsole = ConsoleInDom.render($console);
 
-$start.addEventListener("click", async () => {
-  createWallet();
-  $start.disabled = true;
+$address.addEventListener("click", async () => {
+  await createWallet();
 
-  $info.addEventListener("click", async () => {
-    const walletInfo = await getInfo();
-    domConsole.log(walletInfo);
-  });
+  const address = await getAddress();
+  domConsole.log(address);
+});
 
-  $info.disabled = false;
+$sign.addEventListener("click", async () => {
+  await createWallet();
 
-  $address.addEventListener("click", async () => {
-    const address = await getAddress();
+  const message = $email.value;
+
+  if (!message) alert("Please fill in an e-mail");
+
+  const hash = createUnsignedHash(message);
+  const signature = await signHash(hash);
+
+  domConsole.log(signature);
+
+  $verify.addEventListener("click", async () => {
+    const address = verifyHash(message, signature);
     domConsole.log(address);
   });
 
-  $address.disabled = false;
-
-  $sign.addEventListener("click", async () => {
-    const address = await getAddress();
-    const message = {
-      email: "jeroen@jeroenwever.com",
-      addressX: address,
-    };
-    const hash = await createUnsignedHash(message);
-    const signedHash = await signHash(hash);
-    
-    domConsole.log(signedHash);
-  });
-
-  $sign.disabled = false;
+  $verify.disabled = false;
 });
-
-// const message = await signHash();
-
-// console.log(await signHash());

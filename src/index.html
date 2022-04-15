@@ -2,22 +2,40 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Ledger Playground</title>
     <link rel="stylesheet" href="./reset.css" />
     <link rel="stylesheet" href="./style.css" />
-    <link rel="stylesheet" href="https://unpkg.com/console-in-dom@1.3.0/console.css">
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/console-in-dom@1.3.0/console.css"
+    />
   </head>
   <body>
-    <section class="section">
-      <h1 class="page-title">Connect your ledger open the Avax App and press start</h1>
-    </section>
-    <section class="section">
-      <button id="start" class="button">Start</button>
-      <button id="info" class="button" disabled>Get Info</button>
-      <button id="address" class="button" disabled>Get Address</button>
-      <button id="sign" class="button" disabled>Sign Message</button>
-    </section>
-    <section id="console" class="section console"></section>
+    <main class="main">
+      <section class="section">
+        <h1 class="page-title">
+          Connect your ledger open the Avax App and hit any of the actions
+        </h1>
+      </section>
+      <section class="section">
+        <button id="address" class="button">Get Address</button>
+        <span> OR </span>
+      </section>
+      <section class="section">
+        <input
+          id="email"
+          class="input input--with-button-right"
+          type="email"
+          placeholder="email"
+        />
+        <button id="sign" class="button button--with-input-left">
+          Sign Hash
+        </button>
+        <button id="verify" class="button" disabled>Verify Hash</button>
+      </section>
+      <section id="console" class="console"></section>
+    </main>
   </body>
   <script type="module" src="./client/index.js"></script>
 </html>

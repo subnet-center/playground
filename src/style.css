@@ -1,8 +1,10 @@
 
-.section {
-  padding: 4px;
+.main {
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
+.section,
 .page-title {
   margin: 4px 8px;
 }
@@ -28,4 +30,24 @@
 .button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.button--with-input-left {
+  margin-left: -3px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.input {
+  margin: 4px 8px;
+  padding: 8px 16px;
+  border: 1px solid teal;
+  border-radius: 4px;
+  width: 300px;
+}
+
+.input--with-button-right {
+  margin-right: -3px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }

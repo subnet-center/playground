@@ -27,7 +27,9 @@ module.exports = {
 
 // MAIN X: X-avax1xjytpw2y698vkhc5tlj8mc36ece5ue99vqs5hw
 // FUJI X: X-fuji1cz7wqzg7z3lqyfx6eln5jw8ztgs369txgch2e2
+
 // MAIN P: P-avax1xjytpw2y698vkhc5tlj8mc36ece5ue99vqs5hw
 // FUJI P: P-fuji1cz7wqzg7z3lqyfx6eln5jw8ztgs369txgch2e2
+
 // MAIN C: 0x175f3dbc83e9dd3e6235378a7fdbea6a8bc1ad51
 // FUJI C: 0x175f3dbc83e9dd3e6235378a7fdbea6a8bc1ad51
